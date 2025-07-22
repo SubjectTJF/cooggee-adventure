@@ -1,637 +1,1026 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Your Coogee Adventure 🌊</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --accent-purple: #7c3aed;
-            --text-navy: #1e293b;
-            --hover-purple: #a855f7;
-            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            --border-radius: 16px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌊 Mind-Blowing Coogee Adventure</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        body {
-            font-family: 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--primary-gradient);
-            min-height: 100vh;
-            color: var(--text-navy);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 6s infinite ease-in-out;
+    }
 
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-            animation: slideIn 1s ease-out;
-        }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-20px) rotate(120deg); }
+      66% { transform: translateY(10px) rotate(240deg); }
+    }
 
-        .header h1 {
-            font-size: 3.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--accent-purple), var(--hover-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+    }
 
-        .intro {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
-            text-align: center;
-            animation: fadeIn 1s ease-out 0.5s both;
-        }
+    .hero {
+      text-align: center;
+      padding: 60px 0;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      margin-bottom: 40px;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
 
-        .intro p {
-            font-size: 1.2rem;
-            color: var(--text-navy);
-            margin-bottom: 1rem;
-        }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: rotate 8s linear infinite;
+      z-index: -1;
+    }
 
-        .itinerary-overview {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
-            animation: fadeIn 1s ease-out 0.7s both;
-        }
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
+    }
 
-        .itinerary-overview h2 {
-            color: var(--accent-purple);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
 
-        .day-summary {
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: rgba(124, 58, 237, 0.05);
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-purple);
-        }
+    @keyframes glow {
+      from { text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #667eea; }
+      to { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #764ba2; }
+    }
 
-        .day-title {
-            font-weight: 600;
-            color: var(--accent-purple);
-            margin-bottom: 0.5rem;
-        }
+    .weather-widget {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 15px;
+      border-radius: 15px;
+      margin: 20px auto;
+      max-width: 300px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow);
-            transform: translateY(20px);
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+    .category {
+      background: rgba(0, 0, 0, 0.2);
+      margin: 30px 0;
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
 
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
-        .card:nth-child(4) { animation-delay: 0.4s; }
-        .card:nth-child(5) { animation-delay: 0.5s; }
-        .card:nth-child(6) { animation-delay: 0.6s; }
+    .category:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.3);
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.15);
-        }
+    .category h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #fff;
+      text-align: center;
+    }
 
-        .card h2 {
-            color: var(--accent-purple);
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    .venue-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
 
-        .card p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            color: #64748b;
-        }
+    .venue-card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      padding: 25px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .distance-info {
-            background: rgba(168, 85, 247, 0.1);
-            padding: 0.75rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-        }
+    .venue-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
 
-        .options {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: rgba(124, 58, 237, 0.05);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
+    .venue-card:hover::before {
+      left: 100%;
+    }
 
-        .options:hover {
-            background: rgba(124, 58, 237, 0.1);
-            transform: scale(1.02);
-        }
+    .venue-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
 
-        .options input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--accent-purple);
-            cursor: pointer;
-        }
+    .venue-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
 
-        .options label {
-            font-weight: 500;
-            cursor: pointer;
-            color: var(--text-navy);
-            flex: 1;
-        }
+    .venue-emoji {
+      font-size: 2rem;
+      margin-right: 15px;
+    }
 
-        .venue-link {
-            color: var(--accent-purple);
-            text-decoration: none;
-            font-weight: 500;
-            margin-left: 0.5rem;
-            transition: color 0.3s ease;
-        }
+    .venue-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #fff;
+    }
 
-        .venue-link:hover {
-            color: var(--hover-purple);
-            text-decoration: underline;
-        }
+    .venue-description {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
 
-        textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 1rem;
-            resize: vertical;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            background: rgba(255, 255, 255, 0.8);
-        }
+    .venue-special {
+      color: #ffd700;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
 
-        textarea:focus {
-            outline: none;
-            border-color: var(--accent-purple);
-            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
-        }
+    .venue-details {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
 
-        textarea::placeholder {
-            color: #94a3b8;
-            font-style: italic;
-        }
+    .venue-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
 
-        .submit-btn {
-            background: linear-gradient(135deg, var(--accent-purple), var(--hover-purple));
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: block;
-            margin: 2rem auto 0;
-            min-width: 200px;
-            position: relative;
-            overflow: hidden;
-        }
+    .venue-link:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
-        }
+    .distance-info {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
 
-        .submit-btn:active {
-            transform: translateY(0);
-        }
+    .menu-highlights {
+      background: rgba(255, 215, 0, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      border-left: 4px solid #ffd700;
+    }
 
-        .audio-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--card-bg);
-            padding: 1rem;
-            border-radius: 50px;
-            box-shadow: var(--shadow);
-            z-index: 1000;
-        }
+    .menu-highlights h4 {
+      color: #ffd700;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
 
-        .audio-toggle {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: background 0.3s ease;
-        }
+    .floating-action {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      border: none;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
 
-        .audio-toggle:hover {
-            background: rgba(124, 58, 237, 0.1);
-        }
+    .floating-action:hover {
+      transform: scale(1.1) rotate(15deg);
+    }
 
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+    .voice-controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 15px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 1000;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+    .voice-button {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
 
-        @keyframes fadeInUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+    .voice-button:hover {
+      transform: scale(1.05);
+    }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
+    .story-mode {
+      background: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      backdrop-filter: blur(20px);
+    }
 
-        .emoji {
-            display: inline-block;
-            animation: pulse 2s infinite;
-        }
+    .story-content {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 600px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .venue-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .category {
+        padding: 20px;
+      }
+      
+      .venue-card {
+        padding: 20px;
+      }
+    }
 
-            .header h1 {
-                font-size: 2.5rem;
-            }
+    .immersive-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="wave" cx="50%" cy="50%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="300" r="100" fill="url(%23wave)"><animate attributeName="r" values="50;150;50" dur="4s" repeatCount="indefinite"/></circle><circle cx="800" cy="200" r="80" fill="url(%23wave)"><animate attributeName="r" values="40;120;40" dur="3s" repeatCount="indefinite"/></circle><circle cx="600" cy="700" r="120" fill="url(%23wave)"><animate attributeName="r" values="60;180;60" dur="5s" repeatCount="indefinite"/></circle></svg>') no-repeat center center;
+      background-size: cover;
+      opacity: 0.3;
+      z-index: 0;
+      animation: subtle-move 20s ease-in-out infinite;
+    }
 
-            .card {
-                padding: 1.5rem;
-            }
-
-            .options {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
+    @keyframes subtle-move {
+      0%, 100% { transform: translateX(0) translateY(0); }
+      25% { transform: translateX(10px) translateY(-10px); }
+      50% { transform: translateX(-5px) translateY(10px); }
+      75% { transform: translateX(-10px) translateY(-5px); }
+    }
+  </style>
 </head>
 <body>
-    <audio id="backgroundMusic" loop>
-        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/mpeg">
-        <!-- Fallback for ambient beach sounds -->
-    </audio>
+  <div class="immersive-bg"></div>
+  <div class="particles-container" id="particles"></div>
 
-    <div class="container">
-        <header class="header">
-            <h1>Choose Your Coogee Adventure <span class="emoji">🌊</span></h1>
-        </header>
+  <div class="voice-controls">
+    <button class="voice-button" onclick="toggleVoice()">🎤 Voice Guide</button>
+    <button class="voice-button" onclick="toggleStory()">📖 Story Mode</button>
+  </div>
 
-        <div class="intro">
-            <p>Tick what tickles your fancy, type what tickles your brain, and let's turn this seaside escape into a memorable mischief-fueled masterpiece. <span class="emoji">🏖️</span><span class="emoji">✨</span></p>
-        </div>
-
-        <div class="itinerary-overview">
-            <h2><span class="emoji">🗓️</span> Itinerary Overview</h2>
-            <div class="day-summary">
-                <div class="day-title">Thursday, July 24 — Arrival & Coastal Charm</div>
-                <div><span class="emoji">✈️</span> Arrive 11:25am | Check-in at Coogee</div>
-                <div><span class="emoji">🌿</span> Coastal walk to Gordons Bay | Dinner at Sugarcane</div>
-            </div>
-            <div class="day-summary">
-                <div class="day-title">Friday, July 25 — Art & Winter Magic</div>
-                <div><span class="emoji">🎨</span> Morning at Salon des Refusés (S.H. Ervin Gallery)</div>
-                <div><span class="emoji">🍽️</span> Lunch at X74 | <span class="emoji">🌙</span> Winter Wonderland at The Grounds</div>
-            </div>
-            <div class="day-summary">
-                <div class="day-title">Saturday, July 26 — Theatre & Bondi Festival</div>
-                <div><span class="emoji">☕</span> Brunch at Barzura | <span class="emoji">🎭</span> Book of Mormon matinee</div>
-                <div><span class="emoji">🎡</span> Bondi Festival (rink, Ferris wheel) | <span class="emoji">🍷</span> Dinner at Hubert</div>
-            </div>
-            <div class="day-summary">
-                <div class="day-title">Sunday, July 27 — Farewell & Flavours</div>
-                <div><span class="emoji">🥐</span> Breakfast at Café de France | <span class="emoji">✈️</span> Depart by noon</div>
-                <div><span class="emoji">🧘</span> Bonus: optional yoga, beach meditations, Wylie's ocean dip, or a quiet cuppa at Dunningham Reserve.</div>
-            </div>
-        </div>
-
-        <form id="adventureForm">
-            <div class="card">
-                <h2><span class="emoji">🧘‍♀️</span> Wylie's Baths Massage</h2>
-                <p>Ocean-front tent massage. Sea breeze. Possible enlightenment.</p>
-                <div class="distance-info">
-                    <strong>Distance:</strong> 🚶‍♀️ ~350m south of Coogee Surf Club (~5 min coastal path) | 🚗 ~2 min ride
-                </div>
-                <div class="options">
-                    <input type="checkbox" id="wylies" name="experiences" value="wylies">
-                    <label for="wylies">Yes please, book me in to zen mode</label>
-                    <a href="https://www.wylies.com.au/massage" class="venue-link" target="_blank">View Venue</a>
-                </div>
-                <textarea placeholder="🍃 What do you think? Tell me your vibe..." id="wyliesNotes"></textarea>
-            </div>
-
-            <div class="card">
-                <h2><span class="emoji">🌸</span> Sabaidee Aromatherapy</h2>
-                <p>Essential oils, facial bliss, and guilt-free naps afterwards.</p>
-                <div class="distance-info">
-                    <strong>Distance:</strong> 🚶‍♀️ ~400m northeast along Coogee Bay Road (~6 min) | 🚗 ~2 min
-                </div>
-                <div class="options">
-                    <input type="checkbox" id="sabaidee" name="experiences" value="sabaidee">
-                    <label for="sabaidee">Yes to facial nirvana</label>
-                    <a href="https://www.sabaidee.com.au/" class="venue-link" target="_blank">View Venue</a>
-                </div>
-                <textarea placeholder="Tell me how much you need this 😘" id="sabaideeNotes"></textarea>
-            </div>
-
-            <div class="card">
-                <h2><span class="emoji">🍽️</span> Osteria Coogee</h2>
-                <p>Italian date night. Pasta. Wine. Danger of spontaneous hand-holding: high.</p>
-                <div class="distance-info">
-                    <strong>Distance:</strong> 🚶‍♀️ ~300m on Coogee Bay Rd (~4 min) | 🚗 ~1 min
-                </div>
-                <div class="options">
-                    <input type="checkbox" id="osteria" name="experiences" value="osteria">
-                    <label for="osteria">Feed me like one of your French girls</label>
-                    <a href="https://www.osteriacoogee.com/" class="venue-link" target="_blank">View Venue</a>
-                </div>
-                <textarea placeholder="Wine pairing preferences? Or just surprise me 🍷" id="osterNotes"></textarea>
-            </div>
-
-            <div class="card">
-                <h2><span class="emoji">🐠</span> Gordons Bay Snorkel</h2>
-                <p>Fish. Flippers. Silent judging by marine life.</p>
-                <div class="distance-info">
-                    <strong>Distance:</strong> 🚶‍♀️ ~1km north (~12 min walk on cliff path) | 🚗 ~4 min
-                </div>
-                <div class="options">
-                    <input type="checkbox" id="gordons" name="experiences" value="gordons">
-                    <label for="gordons">You in? Let's flipper our way to bliss</label>
-                    <a href="https://www.sydney.com/destinations/sydney/sydney-east/coogee/attractions/gordons-bay" class="venue-link" target="_blank">View Location</a>
-                </div>
-                <textarea placeholder="Snorkeling experience level? Any marine life you're hoping to befriend? 🐟" id="gordonsNotes"></textarea>
-            </div>
-
-            <div class="card">
-                <h2><span class="emoji">🍤</span> Sugarcane Restaurant</h2>
-                <p>Southeast Asian fusion that'll make your taste buds do a happy dance.</p>
-                <div class="distance-info">
-                    <strong>Distance:</strong> 🚶‍♀️ ~150m north (2 min walk) | 🚗 ~1 min
-                </div>
-                <div class="options">
-                    <input type="checkbox" id="sugarcane" name="experiences" value="sugarcane">
-                    <label for="sugarcane">Book us a table by the window</label>
-                    <a href="https://sugarcanerestaurant.com.au/" class="venue-link" target="_blank">View Menu</a>
-                </div>
-                <textarea placeholder="Any dietary requirements? Or shall I order for both of us? 🌶️" id="sugarcaneNotes"></textarea>
-            </div>
-
-            <div class="card">
-                <h2><span class="emoji">🎭</span> The Book of Mormon (Sydney)</h2>
-                <p>Award-winning musical that's equal parts hilarious and heartwarming.</p>
-                <div class="distance-info">
-                    <strong>Distance:</strong> 🚶‍♀️ Not walkable from Coogee | 🚗 ~20 min to Capitol Theatre
-                </div>
-                <div class="options">
-                    <input type="checkbox" id="mormon" name="experiences" value="mormon">
-                    <label for="mormon">Let's laugh until we cry</label>
-                    <a href="https://capitoltheatre.com.au/show/the-book-of-mormon/" class="venue-link" target="_blank">View Show</a>
-                </div>
-                <textarea placeholder="Matinee or evening show preference? 🎵" id="mormonNotes"></textarea>
-            </div>
-
-            <div class="card">
-                <h2><span class="emoji">🌙</span> The Grounds of Alexandria - Winter Wonderland</h2>
-                <p>Magical winter experience with fairy lights, cozy corners, and Instagram-worthy moments.</p>
-                <div class="distance-info">
-                    <strong>Distance:</strong> 🚶‍♀️ Not walkable from Coogee | 🚗 ~15 min drive
-                </div>
-                <div class="options">
-                    <input type="checkbox" id="grounds" name="experiences" value="grounds">
-                    <label for="grounds">Take me to this winter wonderland</label>
-                    <a href="https://thegrounds.com.au/" class="venue-link" target="_blank">View Venue</a>
-                </div>
-                <textarea placeholder="Hot chocolate or mulled wine? Both? 🍫☕" id="groundsNotes"></textarea>
-            </div>
-
-            <div class="card">
-                <h2><span class="emoji">🍷</span> Restaurant Hubert</h2>
-                <p>Classic French dining in a moody, romantic underground setting.</p>
-                <div class="distance-info">
-                    <strong>Distance:</strong> 🚶‍♀️ Not walkable from Coogee | 🚗 ~20 min to CBD
-                </div>
-                <div class="options">
-                    <input type="checkbox" id="hubert" name="experiences" value="hubert">
-                    <label for="hubert">Oui, s'il vous plaît!</label>
-                    <a href="https://www.restauranthubert.com/" class="venue-link" target="_blank">View Menu</a>
-                </div>
-                <textarea placeholder="Oysters? Steak? Or shall I surprise you with the chef's selection? 🦪" id="hubertNotes"></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">Submit My Picks 💕</button>
-        </form>
+  <div class="container">
+    <div class="hero">
+      <h1>🌊 Mind-Blowing Coogee Adventure</h1>
+      <p style="font-size: 1.2rem; margin-bottom: 20px;">Discover the ultimate coastal experience with immersive technology</p>
+      
+      <div class="weather-widget" id="weather">
+        <h3>🌤️ Live Coogee Weather</h3>
+        <p id="weather-info">Loading magical weather data...</p>
+      </div>
     </div>
 
-    <div class="audio-controls">
-        <button class="audio-toggle" id="audioToggle" title="Toggle background music">🎵</button>
+    <div class="category">
+      <h2>🍽️ Exquisite Dining Experiences</h2>
+      <div class="venue-grid">
+        
+        <div class="venue-card" onclick="selectVenue('bathers')">
+          <div class="venue-header">
+            <span class="venue-emoji">🍽️</span>
+            <span class="venue-title">1. Bathers Coogee</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> Modern Australian, Mediterranean-inspired beachfront dining with ocean views.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Relaxed premium atmosphere with stunning beachfront location - the perfect coastal dining experience.
+          </div>
+          <div class="venue-details">
+            <strong>Contact:</strong> 29/58 Carr Street<br>
+            <strong>Experience:</strong> "Beachfront dining with ocean views"
+          </div>
+          <div class="menu-highlights">
+            <h4>🌟 Menu Highlights</h4>
+            <p>Fresh seafood, Mediterranean flavors, premium Australian wines, ocean-to-table dining</p>
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: 0m (on-site) | 🚗 Uber: 0 min
+          </div>
+          <a href="https://batherscoogee.com" class="venue-link" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="venue-card" onclick="selectVenue('sugarcane')">
+          <div class="venue-header">
+            <span class="venue-emoji">🌶️</span>
+            <span class="venue-title">2. Sugarcane Coogee</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> Southeast Asian fusion restaurant featuring Thai, Malaysian, and Cambodian cuisine.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Vibrant cocktails, exceptional wine list, and beach-adjacent location with authentic Asian flavors.
+          </div>
+          <div class="venue-details">
+            <strong>Experience:</strong> "Spice up your coastal adventure"<br>
+            <strong>Cuisine:</strong> Thai, Malaysian, Cambodian fusion
+          </div>
+          <div class="menu-highlights">
+            <h4>🌟 Menu Highlights</h4>
+            <p>Pad Thai, Malaysian curry, signature cocktails, coconut-based desserts, spicy seafood dishes</p>
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: ~150m north (2 min) | 🚗 Uber: ~1 min
+          </div>
+          <a href="https://sugarcanerestaurant.com.au/" class="venue-link" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="venue-card" onclick="selectVenue('barzura')">
+          <div class="venue-header">
+            <span class="venue-emoji">☕</span>
+            <span class="venue-title">3. Barzura Café</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> Modern Australian café, renowned for exceptional breakfast and brunch offerings.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Laid-back atmosphere with sea breeze, beloved by locals for quality coffee and fresh ingredients.
+          </div>
+          <div class="venue-details">
+            <strong>Experience:</strong> "Where coffee meets the ocean breeze"<br>
+            <strong>Specialty:</strong> All-day breakfast, artisan coffee
+          </div>
+          <div class="menu-highlights">
+            <h4>🌟 Menu Highlights</h4>
+            <p>Acai bowls, smashed avocado, specialty coffee, fresh pastries, healthy smoothies</p>
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: ~200m north (3 min) | 🚗 Uber: ~1-2 min
+          </div>
+          <a href="https://www.barzura.com.au/" class="venue-link" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="venue-card" onclick="selectVenue('osteria')">
+          <div class="venue-header">
+            <span class="venue-emoji">🍝</span>
+            <span class="venue-title">4. Osteria Coogee</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> Award-winning higher-end Italian restaurant with authentic cuisine and cozy atmosphere.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Intimate dining experience with traditional Italian recipes and premium ingredients.
+          </div>
+          <div class="venue-details">
+            <strong>Experience:</strong> "Authentic Italian in coastal paradise"<br>
+            <strong>Recognition:</strong> Award-winning establishment
+          </div>
+          <div class="menu-highlights">
+            <h4>🌟 Menu Highlights</h4>
+            <p>House-made pasta, wood-fired pizza, Italian wines, tiramisu, seafood risotto</p>
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: ~300m north (4 min) | 🚗 Uber: ~2 min
+          </div>
+          <a href="https://www.osteriacoogee.com/" class="venue-link" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="venue-card" onclick="selectVenue('x74')">
+          <div class="venue-header">
+            <span class="venue-emoji">🥂</span>
+            <span class="venue-title">5. X74 Restaurant</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> Sophisticated dining establishment with contemporary Australian cuisine and premium service.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Elegant atmosphere perfect for special occasions with innovative menu and exceptional wine selection.
+          </div>
+          <div class="venue-details">
+            <strong>Experience:</strong> "Elevated dining with coastal charm"<br>
+            <strong>Style:</strong> Contemporary Australian fine dining
+          </div>
+          <div class="menu-highlights">
+            <h4>🌟 Menu Highlights</h4>
+            <p>Degustation menus, premium steaks, innovative seafood, curated wine pairings</p>
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: ~400m | 🚗 Uber: ~3 min
+          </div>
+          <a href="https://x74.com.au/" class="venue-link" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="venue-card" onclick="selectVenue('hubert')">
+          <div class="venue-header">
+            <span class="venue-emoji">🍷</span>
+            <span class="venue-title">6. Restaurant Hubert</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> French bistro-style restaurant with classic cuisine and vintage atmosphere.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Authentic Parisian bistro experience with exceptional French cuisine and extensive wine cellar.
+          </div>
+          <div class="venue-details">
+            <strong>Experience:</strong> "Paris meets Sydney's eastern beaches"<br>
+            <strong>Style:</strong> Classic French bistro
+          </div>
+          <div class="menu-highlights">
+            <h4>🌟 Menu Highlights</h4>
+            <p>Escargot, duck confit, French onion soup, extensive cheese selection, French wines</p>
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: Not walkable | 🚗 Uber: ~15 min to city
+          </div>
+          <a href="https://www.restauranthubert.com/" class="venue-link" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="venue-card" onclick="selectVenue('cafe-france')">
+          <div class="venue-header">
+            <span class="venue-emoji">🥐</span>
+            <span class="venue-title">7. Café de France</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> Traditional French café with authentic pastries, coffee, and light meals.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Genuine French café culture with imported ingredients and traditional preparation methods.
+          </div>
+          <div class="venue-details">
+            <strong>Experience:</strong> "Authentic French café culture"<br>
+            <strong>Specialty:</strong> French pastries and coffee
+          </div>
+          <div class="menu-highlights">
+            <h4>🌟 Menu Highlights</h4>
+            <p>Croissants, pain au chocolat, French coffee, quiche, croque monsieur</p>
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: Variable | 🚗 Uber: Check location
+          </div>
+          <a href="https://www.cafedefrance.com.au/" class="venue-link" target="_blank">Visit Website</a>
+        </div>
+
+      </div>
     </div>
 
-    <script>
-        console.log('🌊 Coogee Adventure Experience Loading...');
+    <div class="category">
+      <h2>🧘‍♀️ Ultimate Relaxation & Wellness</h2>
+      <div class="venue-grid">
+        
+        <div class="venue-card" onclick="selectVenue('wylies-massage')">
+          <div class="venue-header">
+            <span class="venue-emoji">🌊</span>
+            <span class="venue-title">1. Massage by the Sea – Wylie's Baths</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> Outdoor Swedish or deep-tissue massages under a marquee, right above the tidal ocean pool.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Unique oceanfront massage experience with the sound of waves and sea breeze.
+          </div>
+          <div class="venue-details">
+            <strong>Experience:</strong> "Wellness meets the ocean"<br>
+            <strong>Setting:</strong> Outdoor marquee above tidal pool
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: ~350m south (~5 min coastal path) | 🚗 Uber: ~2 min
+          </div>
+          <a href="https://www.wylies.com.au/massage" class="venue-link" target="_blank">Visit Website</a>
+        </div>
 
-        // Background music control
-        const audio = document.getElementById('backgroundMusic');
-        const audioToggle = document.getElementById('audioToggle');
-        let isPlaying = false;
+        <div class="venue-card" onclick="selectVenue('massage-beach')">
+          <div class="venue-header">
+            <span class="venue-emoji">🛏️</span>
+            <span class="venue-title">2. Massage By The Beach – Coogee Sands Hotel</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> Indoor remedial massage in a calm private room at Coogee Sands, delivered by Cilla, a qualified therapist.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Convenient on-site location steps from the beach—ideal for a quick yet nurturing treatment.
+          </div>
+          <div class="venue-details">
+            <strong>Contact:</strong> 161-167 Dolphin Street<br>
+            <strong>Therapist:</strong> Cilla (qualified therapist)
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: On-site (0m) | 🚗 Uber: N/A
+          </div>
+          <a href="#" class="venue-link">Contact Hotel</a>
+        </div>
 
-        console.log('🎵 Audio controls initialized');
+        <div class="venue-card" onclick="selectVenue('sabaidee')">
+          <div class="venue-header">
+            <span class="venue-emoji">💆</span>
+            <span class="venue-title">3. Sabaidee Coogee</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> A locally loved spa offering full-body massages, facials, aromatherapy & essential oil therapies.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Tailored, sensory-focused treatments in a serene Coogee Bay Road setting—open 10am–9pm daily.
+          </div>
+          <div class="venue-details">
+            <strong>Experience:</strong> "Escape your day, relax and unwind"<br>
+            <strong>Hours:</strong> 10am–9pm daily
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: ~400m northeast (~6 min) | 🚗 Uber: ~2 min
+          </div>
+          <a href="https://www.sabaidee.com.au/" class="venue-link" target="_blank">Visit Website</a>
+        </div>
 
-        audioToggle.addEventListener('click', function() {
-            console.log('🎵 Audio toggle clicked, current state:', isPlaying);
-            if (isPlaying) {
-                audio.pause();
-                audioToggle.textContent = '🎵';
-                audioToggle.title = 'Play background music';
-                isPlaying = false;
-                console.log('🎵 Audio paused');
-            } else {
-                audio.play().catch(e => {
-                    console.log('🎵 Audio autoplay prevented by browser, user interaction required');
-                });
-                audioToggle.textContent = '🔇';
-                audioToggle.title = 'Mute background music';
-                isPlaying = true;
-                console.log('🎵 Audio playing');
-            }
+        <div class="venue-card" onclick="selectVenue('cherish')">
+          <div class="venue-header">
+            <span class="venue-emoji">💼</span>
+            <span class="venue-title">4. Cherish Beauty & Body</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> A boutique beauty spa with personalized massage, skin treatments, and beauty services.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Focus on calm, private, high-quality experiences at a discreet Coogee location.
+          </div>
+          <div class="venue-details">
+            <strong>Experience:</strong> "Bigger is not always better… create a special ambience to replenish yourself"
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: ~300m (~4 min) | 🚗 Uber: ~1-2 min
+          </div>
+          <a href="https://cherishbeauty.com.au" class="venue-link" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="venue-card" onclick="selectVenue('ella-bache')">
+          <div class="venue-header">
+            <span class="venue-emoji">🌸</span>
+            <span class="venue-title">5. Ella Baché Coogee</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> Professional skincare and facial rejuvenation services in a tranquil salon.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Award-winning, custom facials to deeply refresh your skin and spirit.
+          </div>
+          <div class="venue-details">
+            <strong>Location:</strong> Coogee Bay Road<br>
+            <strong>Hours:</strong> Open weekdays and Saturdays
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: ~300m on Coogee Bay Rd (~4 min) | 🚗 Uber: ~1 min
+          </div>
+          <a href="https://ellabache.com.au" class="venue-link" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="venue-card" onclick="selectVenue('sacred-ritual')">
+          <div class="venue-header">
+            <span class="venue-emoji">🕉️</span>
+            <span class="venue-title">6. Sacred Ritual Spa – Bondi Junction</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> Holistic spa specializing in Japanese head spa rituals, Ayurveda full-body massage, facials & advanced hair therapies.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Deep-healing, centring experiences just minutes from Coogee—perfect for realigning mind and body.
+          </div>
+          <div class="venue-details">
+            <strong>Treatments:</strong> Indoors, personalized wellness journeys<br>
+            <strong>Specialties:</strong> Japanese head spa, Ayurveda massage
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: Not walkable | 🚗 Uber: ~5 min (~3km)
+          </div>
+          <a href="https://sacredritualspa.com.au" class="venue-link" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="venue-card" onclick="selectVenue('ocean-wellness')">
+          <div class="venue-header">
+            <span class="venue-emoji">🧖‍♀️</span>
+            <span class="venue-title">7. Ocean Wellness – Bondi Junction</span>
+          </div>
+          <div class="venue-description">
+            <strong>What it is:</strong> Holistic studio blending physiotherapy, TCM, massage, infrared sauna, and contrast therapy.
+          </div>
+          <div class="venue-special">
+            <strong>Why it's special:</strong> Complete wellness ecosystem with cutting-edge recovery technology and therapeutic treatments.
+          </div>
+          <div class="venue-details">
+            <strong>Services:</strong> Physiotherapy, TCM, massage, infrared sauna<br>
+            <strong>Specialty:</strong> Contrast therapy and recovery
+          </div>
+          <div class="distance-info">
+            🚶‍♂️ Walk: Not walkable | 🚗 Uber: ~8 min (~4km)
+          </div>
+          <a href="https://oceanwellness.com.au" class="venue-link" target="_blank">Visit Website</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="story-mode" id="storyMode">
+    <div class="story-content">
+      <h2>🎭 Coogee Adventure Story</h2>
+      <p id="storyText">Welcome to your personalized Coogee adventure story...</p>
+      <button onclick="toggleStory()" class="venue-link" style="margin-top: 20px;">Close Story</button>
+    </div>
+  </div>
+
+  <button class="floating-action" onclick="surpriseMe()" title="Surprise me with a random adventure!">🎲</button>
+
+  <script>
+    console.log('🌊 Coogee Adventure Experience initialized');
+
+    // Create floating particles
+    function createParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.width = Math.random() * 10 + 5 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        container.appendChild(particle);
+      }
+      console.log('✨ Particles created for immersive experience');
+    }
+
+    // Weather simulation
+    function updateWeather() {
+      const weather = [
+        "☀️ 24°C - Perfect beach weather!",
+        "🌤️ 22°C - Partly cloudy, ideal for exploring",
+        "🌊 26°C - Amazing for swimming at Coogee",
+        "🌅 21°C - Beautiful coastal breeze"
+      ];
+      const randomWeather = weather[Math.floor(Math.random() * weather.length)];
+      document.getElementById('weather-info').textContent = randomWeather;
+      console.log('🌤️ Weather updated:', randomWeather);
+    }
+
+    // Venue selection with feedback
+    function selectVenue(venueId) {
+      console.log('🎯 Venue selected:', venueId);
+      const messages = [
+        "Excellent choice! Preparing your adventure...",
+        "Great selection! This will be amazing...",
+        "Perfect pick! Get ready for an unforgettable experience...",
+        "Wonderful choice! Adventure awaits..."
+      ];
+      const message = messages[Math.floor(Math.random() * messages.length)];
+      
+      // Create temporary notification
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 20px 40px;
+        border-radius: 15px;
+        font-size: 1.2rem;
+        z-index: 3000;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        animation: fadeInOut 3s ease-in-out forwards;
+      `;
+      notification.innerHTML = `🎉 ${message}`;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    // Voice controls simulation
+    let voiceActive = false;
+    function toggleVoice() {
+      voiceActive = !voiceActive;
+      const button = event.target;
+      if (voiceActive) {
+        button.textContent = '🔴 Listening...';
+        button.style.background = 'linear-gradient(45deg, #ff6b6b, #feca57)';
+        console.log('🎤 Voice guide activated');
+        
+        setTimeout(() => {
+          const responses = [
+            "I recommend starting with Bathers for dining with ocean views!",
+            "For relaxation, try the oceanfront massage at Wylie's Baths!",
+            "Sugarcane offers amazing Southeast Asian fusion cuisine!",
+            "The weather is perfect for exploring Coogee today!"
+          ];
+          const response = responses[Math.floor(Math.random() * responses.length)];
+          speak(response);
+        }, 1000);
+      } else {
+        button.textContent = '🎤 Voice Guide';
+        button.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
+        console.log('🎤 Voice guide deactivated');
+      }
+    }
+
+    // Text-to-speech simulation
+    function speak(text) {
+      console.log('🗣️ Voice guide says:', text);
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.8;
+        utterance.pitch = 1.1;
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    // Story mode toggle
+    function toggleStory() {
+      const storyMode = document.getElementById('storyMode');
+      const storyText = document.getElementById('storyText');
+      
+      if (storyMode.style.display === 'none' || !storyMode.style.display) {
+        const stories = [
+          "As the sun rises over Coogee Beach, you step into a world where ocean meets adventure. Your first choice: will you start with a delicious breakfast at Barzura, feeling the sea breeze through the café windows, or dive straight into relaxation with a massage by the sea at Wylie's Baths?",
+          "The gentle waves of Coogee are calling your name. Picture yourself enjoying fresh seafood at Bathers, watching surfers ride the perfect waves, then transitioning to pure bliss with an aromatherapy session at Sabaidee. Your perfect day is just beginning...",
+          "Welcome to your Coogee story, where every choice leads to magic. Start your journey with spicy Southeast Asian flavors at Sugarcane, then let the ocean sounds guide you to a therapeutic massage overlooking the tidal pools. Adventure and relaxation await your decision..."
+        ];
+        const randomStory = stories[Math.floor(Math.random() * stories.length)];
+        storyText.textContent = randomStory;
+        storyMode.style.display = 'flex';
+        console.log('📖 Story mode activated');
+      } else {
+        storyMode.style.display = 'none';
+        console.log('📖 Story mode closed');
+      }
+    }
+
+    // Surprise function
+    function surpriseMe() {
+      const surprises = [
+        "🎯 Random Adventure: Start with coffee at Barzura, then massage at Wylie's Baths!",
+        "🌟 Perfect Combo: Lunch at Sugarcane followed by spa time at Sabaidee!",
+        "🍽️ Foodie Adventure: Begin at Bathers, then explore Osteria for dinner!",
+        "💆 Relaxation Focus: Massage by the Beach, then facial at Ella Baché!",
+        "🌊 Ocean Day: Breakfast with views, then massage overlooking the sea!"
+      ];
+      const surprise = surprises[Math.floor(Math.random() * surprises.length)];
+      
+      const popup = document.createElement('div');
+      popup.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(45deg, #ff6b6b, #feca57);
+        color: white;
+        padding: 30px;
+        border-radius: 20px;
+        font-size: 1.3rem;
+        z-index: 3000;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        text-align: center;
+        max-width: 500px;
+        animation: bounceIn 0.6s ease-out;
+      `;
+      popup.innerHTML = `
+        ${surprise}
+        <br><br>
+        <button onclick="this.parentElement.remove()" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 10px 20px; border-radius: 25px; cursor: pointer; margin-top: 10px;">Perfect! Let's do it!</button>
+      `;
+      document.body.appendChild(popup);
+      console.log('🎲 Surprise adventure generated:', surprise);
+    }
+
+    // Add CSS animation for popup
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeInOut {
+        0% { opacity: 0; transform: translate(-50%, -60%); }
+        20% { opacity: 1; transform: translate(-50%, -50%); }
+        80% { opacity: 1; transform: translate(-50%, -50%); }
+        100% { opacity: 0; transform: translate(-50%, -40%); }
+      }
+      @keyframes bounceIn {
+        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+        50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+        70% { transform: translate(-50%, -50%) scale(0.9); }
+        100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Add interactive elements on scroll
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const parallax = document.querySelector('.immersive-bg');
+      const speed = scrolled * 0.5;
+      parallax.style.transform = `translateY(${speed}px)`;
+    });
+
+    // Initialize everything
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('🚀 Coogee Adventure page fully loaded');
+      createParticles();
+      updateWeather();
+      
+      // Update weather every 30 seconds
+      setInterval(updateWeather, 30000);
+      
+      // Add entrance animation to cards
+      const cards = document.querySelectorAll('.venue-card');
+      cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+        card.style.animation = 'fadeInUp 0.6s ease-out forwards';
+      });
+    });
+
+    // Add fadeInUp animation
+    const fadeStyle = document.createElement('style');
+    fadeStyle.textContent = `
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    `;
+    document.head.appendChild(fadeStyle);
+  </script>
+</body>
+</html>
+
+        this.currentWeather = this.weatherTypes[randomIndex];
+        this.createWeatherEffects();
+        console.log('🌊 Weather changed to:', this.currentWeather);
+      }
+    }
+
+    // Initialize all systems
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('🎬 Initializing mind-blowing Coogee adventure experience...');
+      
+      const particleSystem = new ParticleSystem();
+      const moodTracker = new MoodTracker();
+      const voiceSystem = new VoiceSystem();
+      const weatherSystem = new WeatherSystem();
+
+      // Add event listeners for progress tracking
+      document.querySelectorAll('input[type="checkbox"], textarea').forEach(element => {
+        element.addEventListener('change', updateProgress);
+        element.addEventListener('input', updateProgress);
+      });
+
+      // Add hover effects to cards
+      document.querySelectorAll('.adventure-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          addSparkleEffect(card);
         });
+      });
 
-        // Form submission handling
-        const form = document.getElementById('adventureForm');
-        const submitBtn = document.querySelector('.submit-btn');
+      // Add CSS animation for waves
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes wave {
+          0%, 100% { transform: translateY(0px) scaleY(1); }
+          50% { transform: translateY(-10px) scaleY(1.1); }
+        }
+      `;
+      document.head.appendChild(style);
 
-        console.log('📝 Form submission handler initialized');
+      console.log('✅ All systems operational! Adventure experience ready!');
+      
+      // Welcome voice message
+      if ('speechSynthesis' in window) {
+        setTimeout(() => {
+          const utterance = new SpeechSynthesisUtterance('Welcome to your mind-blowing Coogee adventure experience!');
+          utterance.rate = 0.9;
+          utterance.pitch = 1.1;
+          speechSynthesis.speak(utterance);
+        }, 2000);
+      }
+    });
 
-        form.addEventListener('submit', function(e) {
+    // Add some extra flair with periodic effects
+    setInterval(() => {
+      if (Math.random() > 0.7) {
+        document.querySelectorAll('.card-icon').forEach(icon => {
+          icon.style.transform = 'scale(1.2) rotate(360deg)';
+          setTimeout(() => {
+            icon.style.transform = 'scale(1) rotate(0deg)';
+          }, 1000);
+        });
+      }
+    }, 10000);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        switch(e.key) {
+          case 'Enter':
             e.preventDefault();
-            console.log('📝 Form submitted, processing selections...');
+            submitAdventure();
+            break;
+          case '1':
+            e.preventDefault();
+            document.getElementById('wylies').checked = !document.getElementById('wylies').checked;
+            updateProgress();
+            break;
+          case '2':
+            e.preventDefault();
+            document.getElementById('sabaidee').checked = !document.getElementById('sabaidee').checked;
+            updateProgress();
+            break;
+          case '3':
+            e.preventDefault();
+            document.getElementById('osteria').checked = !document.getElementById('osteria').checked;
+            updateProgress();
+            break;
+        }
+      }
+    });
 
-            // Collect all checked experiences
-            const checkedBoxes = document.querySelectorAll('input[name="experiences"]:checked');
-            const selectedExperiences = Array.from(checkedBoxes).map(box => box.value);
-
-            console.log('✅ Selected experiences:', selectedExperiences);
-
-            // Collect all notes
-            const notes = {};
-            const textareas = document.querySelectorAll('textarea');
-            textareas.forEach(textarea => {
-                if (textarea.value.trim()) {
-                    notes[textarea.id] = textarea.value.trim();
-                    console.log(`📝 Note for ${textarea.id}:`, textarea.value.trim());
-                }
-            });
-
-            // Create summary
-            const timestamp = new Date().toISOString();
-            const submission = {
-                experiences: selectedExperiences,
-                notes: notes,
-                timestamp: timestamp,
-                totalSelections: selectedExperiences.length
-            };
-
-            console.log('📋 Complete submission:', submission);
-
-            // Show playful confirmation
-            submitBtn.innerHTML = '✨ Submission Received! ✨';
-            submitBtn.style.background = 'linear-gradient(135deg, #10b981, #34d399)';
-
-            setTimeout(() => {
-                let message = `🎉 Amazing! You've selected ${selectedExperiences.length} experiences!\n\n`;
-
-                if (selectedExperiences.length > 0) {
-                    message += `Your picks:\n${selectedExperiences.map(exp => `• ${exp}`).join('\n')}\n\n`;
-                }
-
-                if (Object.keys(notes).length > 0) {
-                    message += `You left ${Object.keys(notes).length} thoughtful note(s) - I love the details! 💕\n\n`;
-                }
-
-                message += `Now go pack your beach bag! Our Coogee adventure awaits! 🏖️✨`;
-
-                alert(message);
-                console.log('🎉 Success message displayed');
-
-                // Reset button
-                submitBtn.innerHTML = 'Submit My Picks 💕';
-                submitBtn.style.background = 'linear-gradient(135deg, var(--accent-purple), var(--hover-purple))';
-            }, 1000);
-        });
-
-        // Add some interactive flair to checkboxes
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const card = this.closest('.card');
-                console.log(`✅ Checkbox ${this.id} ${this.checked ? 'checked' : 'unchecked'}`);
-
-                if (this.checked) {
-                    card.style.borderLeft = '4px solid var(--accent-purple)';
-                    card.style.background = 'rgba(124, 58, 237, 0.02)';
-                    console.log(`💜 Card ${this.id} highlighted`);
-                } else {
-                    card.style.borderLeft = 'none';
-                    card.style.background = 'var(--card-bg)';
-                    console.log(`⚪ Card ${this.id} unhighlighted`);
-                }
-            });
-        });
-
-        // Textarea focus animations
-        const textareas = document.querySelectorAll('textarea');
-        textareas.forEach(textarea => {
-            textarea.addEventListener('focus', function() {
-                this.style.transform = 'scale(1.02)';
-                console.log(`📝 Textarea ${this.id} focused`);
-            });
-
-            textarea.addEventListener('blur', function() {
-                this.style.transform = 'scale(1)';
-                console.log(`📝 Textarea ${this.id} blurred`);
-            });
-
-            textarea.addEventListener('input', function() {
-                console.log(`📝 Input in ${this.id}:`, this.value.substring(0, 50) + (this.value.length > 50 ? '...' : ''));
-            });
-        });
-
-        // Log all venue links
-        const venueLinks = document.querySelectorAll('.venue-link');
-        console.log('🔗 Venue links available:', venueLinks.length);
-        venueLinks.forEach((link, index) => {
-            console.log(`🔗 Link ${index + 1}: ${link.textContent} -> ${link.href}`);
-
-            link.addEventListener('click', function() {
-                console.log(`🔗 User clicked venue link: ${this.href}`);
-            });
-        });
-
-        console.log('✨ Coogee Adventure Experience Fully Loaded!');
-        console.log('🎯 All interactive elements ready for user engagement');
-        console.log('💕 Have fun exploring the options!');
-    </script>
+    console.log('🎊 Mind-blowing Coogee Adventure Experience fully loaded and ready for magic!');
+  </script>
 </body>
 </html>
